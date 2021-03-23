@@ -12,7 +12,7 @@
 <body> 
 
 	<script>
-		location.href='login.jsp';
+		location.href='main.jsp';
 	</script>
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

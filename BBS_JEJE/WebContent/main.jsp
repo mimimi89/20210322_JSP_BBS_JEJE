@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,12 @@
 <title>JSP 게시판 웹사이트</title>
 </head>
 <body> 
+	<%
+		String userID=null;
+		if(session.getAttribute("userID") != null){
+			userID=(String)session.getAttribute("userID");
+		}
+	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" 
@@ -24,42 +31,43 @@
 		
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">메인</a></li>
+				<li class="active"><a href="main.jsp">메인</a></li>
 				<li><a href="bbs.jsp">게시판</a></li>
 			</ul>
+			<%
+				if(userID == null) {
+			%>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="ture"
 					aria-expanded="false">접속하기<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li class="active"><a href="login.jsp">로그인</a></li>
+						<li><a href="login.jsp">로그인</a></li>
 						<li><a href="join.jsp">회원가입</a></li>
 					</ul>
 				</li>
 			</ul>
+			<% 
+				} else {
+			%>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="ture"
+					aria-expanded="false">회원관리<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="mypage.jsp">마이페이지</a></li>
+						<li><a href="logoutAction.jsp">로그아웃</a></li>
+					</ul>
+				</li>
+			</ul>
+			<%
+				}
+			%>
+			<!-- 메인 화면에 *마이페이지 추가 구현 -->
 		</div>
 	</nav>
-	
-	<div class="container">
-		<div class="col-lg-4"></div>
-		<div class="col-lg-4">
-			<div class="jumbotron" style="padding-top: 20px">
-				<form action="loginAction.jsp" method="post">
-					<h3 style="text-align: center">로그인</h3>
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="아이디" name="userID" maxlength="20">
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
-					</div>
-					<input type="submit" class="btn btn-primary form-control" value="로그인">
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- 로그인 화면에 *로그인 상태 유지 *ip보안 *아이디 찾기 *비밀번호 찾기 추가 구현 -->
-	
 	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
